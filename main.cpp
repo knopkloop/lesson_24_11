@@ -1,40 +1,8 @@
 #include <iostream>
-
-struct Planar
-{
-  virtual int x() const = 0;
-  virtual int y() const = 0;
-  virtual int abs_sqr() const = 0;
-  virtual ~Planar() = default;
-};
-
-struct Point: Planar
-{
-  virtual int x() const;
-  virtual int y() const;
-  virtual int abs_sqr() const;
-  Point(int xx, int yy);
-  virtual ~Point() = default;
-  private:
-    int data[2];
-};
-
-struct Vector: Planar
-{
-  virtual int x() const;
-  virtual int y() const;
-  virtual int abs_sqr() const;
-  Vector(Point begin, Point end);
-  virtual ~Vector() = default;
-  private:
-    Point data[2];
-};
-
-Planar *make(std::istream &is);
-Planar *make(size_t id);
-void draw(Planar *pl);
-void free_planars(Planar **pls, size_t k);
-Planar *mostLeft(Planar **pls, size_t k);
+#include "planar.hpp"
+#include "point.hpp"
+#include "vector.hpp"
+#include "functions.hpp"
 
 int main()
 {
@@ -58,80 +26,7 @@ int main()
   return 0;
 }
 
-Point::Point(int xx, int yy):
-  Planar(),
-  data {xx, yy}
-{
-}
 
-int Point::x() const
-{
-  return data[0];
-}
 
-int Point::y() const
-{
-  return data[1];
-}
-
-int Point::abs_sqr() const
-{
-  return x() * x() + y() * y();
-}
-
-Vector::Vector(Point begin, Point end):
-  Planar(),
-  data {begin, end}
-{
-}
-
-int Vector::x() const
-{
-  return data[1].x() - data[0].x();
-}
-
-int Vector::y() const
-{
-  return data[1].y() - data[0].y();
-}
-
-int Vector::abs_sqr() const
-{
-  return x() * x() + y() * y();
-}
-
-Planar *make(size_t id)
-{
-  Planar *r = nullptr;
-  switch (id)
-  {
-    case 0:
-      r = new Point(0, 0);
-      break;
-    default:
-      throw std::logic_error("bad id");
-  }
-  return r;
-}
-
-void free_planars(Planar **pls, size_t k)
-{
-  for (size_t i = 0; i < k; ++i)
-  {
-    delete[] pls[i];
-  }
-}
-
-void draw(Planar *pl)
-{
-  std::cout << pl->x();
-  std::cout << " ";
-  std::cout << pl->y() << "\n";
-}
-
-Planar *mostLeft(Planar **pls, size_t k)
-{
-  return nullptr;
-}
 
 
