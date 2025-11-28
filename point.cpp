@@ -22,7 +22,7 @@ double Point::area() const
 
 frame_t Point::frame() const
 {
-  return frame_t({x(), y()}, {x(), y()})
+  return frame_t{{x(), y()}, {x(), y()}};
 }
 
 int Point::abs_sqr() const
