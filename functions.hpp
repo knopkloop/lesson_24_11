@@ -8,5 +8,6 @@ void draw(Planar *pl);
 void free_planars(Planar **pls, size_t k);
 Planar **mostLeft(Planar **pls, size_t k);
 Planar **max_area(Planar **pls, size_t k);
+double intersection_area(const frame_t &a, const frame_t &b);
 Planar **max_frame_intersects(Planar **pls, size_t k);
 #endif

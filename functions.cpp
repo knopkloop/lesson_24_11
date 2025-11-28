@@ -93,7 +93,21 @@ Planar **mostLeft(Planar **pls, size_t k)
 
 Planar **max_area(Planar **pls, size_t k)
 {
-  return nullptr;
+  if(!k)
+  {
+    return pls;
+  }
+  Planar **res = pls;
+  while (--k)
+  {
+    int next_area = (*(++pls))->x();
+    int cur_area = (*res)->x();
+    if (next_area < cur_area)
+    {
+      res = pls;
+    }
+  }
+  return res;
 }
 
 double intersection_area(const frame_t &a, const frame_t &b)
@@ -107,7 +121,6 @@ double intersection_area(const frame_t &a, const frame_t &b)
     {
         return 0.0;
     }
-    
     return (right - left) * (top - bottom);
 }
 
@@ -116,10 +129,6 @@ Planar **max_frame_intersects(Planar **pls, size_t k)
   if (!k)
   {
     return pls;
-  }
-  else if (k < 2)
-  {
-    return nullptr;
   }
   
   double maxim = -1.0;
