@@ -1,5 +1,6 @@
 #include <iostream>
 #include "planar.hpp"
+#include "frame_t.hpp"
 #include "point.hpp"
 #include "vector.hpp"
 #include "functions.hpp"
@@ -27,7 +28,7 @@ int main()
         pls = epls;
         c *= 2;
       }
-      pls[s] = pl;
+      pls[s++] = pl;
     }
     catch (...)
     {
@@ -35,9 +36,8 @@ int main()
       free_planars(pls, s);
       return 2;
     }
-    ++s;
   }
-  
+
   if (!std::cin.eof())
   {
     free_planars(pls, s);

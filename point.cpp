@@ -1,5 +1,4 @@
 #include "point.hpp"
-
 Point::Point(int xx, int yy):
   Planar(),
   data {xx, yy}
@@ -14,6 +13,17 @@ int Point::x() const
 int Point::y() const
 {
   return data[1];
+}
+
+double Point::area() const
+{
+  return 0.0;
+}
+
+frame_t Point::frame() const
+{
+  frame_t f;
+  return f;
 }
 
 int Point::abs_sqr() const

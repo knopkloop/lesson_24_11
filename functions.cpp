@@ -76,3 +76,13 @@ Planar **mostLeft(Planar **pls, size_t k)
   }
   return res;
 }
+
+Planar **max_area(Planar **pls, size_t k)
+{
+  return nullptr;
+}
+
+Planar **max_frame_intersects(Planar **pls, size_t k)
+{
+  return nullptr;
+}
