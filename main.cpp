@@ -75,18 +75,13 @@ int main()
     {
       std::cerr << "Not found" << "\n";
       free_planars(pls, s);
+      free_planars(max_inter_pl, 2);
       return 0;
     }
     
     draw(max_inter_pl[0]);
     draw(max_inter_pl[1]);
-  }
-  
-  else
-  {
-    std::cerr << "Not enough Planars" << "\n";
-    free_planars(pls, s);
-    return 3;
+    free_planars(max_inter_pl, 2);
   }
   
   free_planars(pls, s);

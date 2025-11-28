@@ -46,8 +46,10 @@ Planar *make(size_t id)
       break;
     case 1:
       r = new Vector(Point(0, 0), Point(1, 1));
+      break;
     case 2:
       r = new Circle(Point(0, 0), 1);
+      break;
     default:
       throw std::logic_error("bad id");
   }
@@ -58,7 +60,7 @@ void free_planars(Planar **pls, size_t k)
 {
   for (size_t i = 0; i < k; ++i)
   {
-    delete[] pls[i];
+    delete pls[i];
   }
   delete[] pls;
 }
@@ -144,6 +146,10 @@ Planar **max_frame_intersects(Planar **pls, size_t k)
     throw;
   }
   
+  res[0] = pls[0];
+  res[1] = pls[1];
+  maxim = intersection_area(pls[0]->frame(), pls[1]->frame());
+  
   for (size_t i = 0; i < k - 1; ++i)
   {
     for (size_t j = i + 1; j < k; ++j)
@@ -160,5 +166,12 @@ Planar **max_frame_intersects(Planar **pls, size_t k)
       }
     }
   }
+  
+  if (maxim <= 0.0)
+  {
+    delete[] res;
+    return nullptr;
+  }
+  
   return res;
 }
