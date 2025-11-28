@@ -1,5 +1,5 @@
 #include "vector.hpp"
-
+#include <iostream>
 Vector::Vector(Point begin, Point end):
   Planar(),
   data {begin, end}
@@ -24,6 +24,10 @@ double Vector::area() const
 frame_t Vector::frame() const
 {
   frame_t f;
+  f.AA.x = std::min(data[0].x(), data[1].x());
+  f.AA.y = std::min(data[0].y(), data[1].y());
+  f.BB.x = std::max(data[0].x(), data[1].x());
+  f.BB.y = std::max(data[0].y(), data[1].y());
   return f;
 }
 
