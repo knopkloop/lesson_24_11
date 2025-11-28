@@ -2,6 +2,7 @@
 #include "functions.hpp"
 #include "point.hpp"
 #include "vector.hpp"
+#include "circle.hpp"
 
 Planar *make(std::istream &is)
 {
@@ -16,6 +17,7 @@ Planar *make(std::istream &is)
       return new Point(data[0], data[1]);
     }
   }
+  
   else if (cmd[0] == 'V' && cmd[1] == 'T')
   {
     if (is >> data[0] >> data[1] >> data[2] >> data[3])
@@ -24,6 +26,13 @@ Planar *make(std::istream &is)
     }
   }
   
+  else if (cmd[0] == 'C' && cmd[1] == 'T')
+  {
+    if (is >> data[0] >> data[1] >> data[2])
+    {
+      return new Circle(Point(data[0], data[1]), data[2]);
+    }
+  }
   throw std::logic_error("bad cmd");
 }
 
@@ -35,6 +44,10 @@ Planar *make(size_t id)
     case 0:
       r = new Point(0, 0);
       break;
+    case 1:
+      r = new Vector(Point(0, 0), Point(1, 1));
+    case 2:
+      r = new Circle(Point(0, 0), 1);
     default:
       throw std::logic_error("bad id");
   }
@@ -55,6 +68,8 @@ void draw(Planar *pl)
   std::cout << pl->x();
   std::cout << " ";
   std::cout << pl->y() << "\n";
+  frame_t fr = pl->frame();
+  std::cout << fr.AA.x << " " << fr.AA.y << " " << fr.BB.x << " " << fr.BB.y << "\n";
 }
 
 Planar **mostLeft(Planar **pls, size_t k)
@@ -80,6 +95,10 @@ Planar **mostLeft(Planar **pls, size_t k)
 Planar **max_area(Planar **pls, size_t k)
 {
   return nullptr;
+}
+double intersection_area(const frame_t &a, const frame_t &b)
+{
+  return 0.0;
 }
 
 Planar **max_frame_intersects(Planar **pls, size_t k)
