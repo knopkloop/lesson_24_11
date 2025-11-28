@@ -78,7 +78,6 @@ Planar **mostLeft(Planar **pls, size_t k)
   {
     return pls;
   }
-  
   Planar **res = pls;
   while (--k)
   {
@@ -96,12 +95,61 @@ Planar **max_area(Planar **pls, size_t k)
 {
   return nullptr;
 }
+
 double intersection_area(const frame_t &a, const frame_t &b)
 {
-  return 0.0;
+    int left = std::max(a.AA.x, b.AA.x);
+    int right = std::min(a.BB.x, b.BB.x);
+    int bottom = std::max(a.AA.y, b.AA.y);
+    int top = std::min(a.BB.y, b.BB.y);
+    
+    if (left >= right || bottom >= top)
+    {
+        return 0.0;
+    }
+    
+    return (right - left) * (top - bottom);
 }
 
 Planar **max_frame_intersects(Planar **pls, size_t k)
 {
-  return nullptr;
+  if (!k)
+  {
+    return pls;
+  }
+  else if (k < 2)
+  {
+    return nullptr;
+  }
+  
+  double maxim = -1.0;
+  double inter_area = 0.0;
+  Planar **res = nullptr;
+  
+  try
+  {
+    res = new Planar*[2];
+  }
+  catch(const std::bad_alloc &)
+  {
+    throw;
+  }
+  
+  for (size_t i = 0; i < k - 1; ++i)
+  {
+    for (size_t j = i + 1; j < k; ++j)
+    {
+      frame_t fr1 = pls[i]->frame();
+      frame_t fr2 = pls[j]->frame();
+      inter_area = intersection_area(fr1, fr2);
+      
+      if (inter_area > maxim)
+      {
+        maxim = inter_area;
+        res[0] = pls[i];
+        res[1] = pls[j];
+      }
+    }
+  }
+  return res;
 }
