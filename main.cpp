@@ -49,9 +49,46 @@ int main()
   {
     std::cerr << "Not found" << "\n";
     free_planars(pls, s);
+    return 0;
   }
   draw(*ml);
   std::cout << "\n";
+  
+  Planar **max_area_pl = max_area(pls, s);
+  draw(*max_area_pl);
+  
+  if (s >= 2)
+  {
+    Planar **max_inter_pl = nullptr;
+    try
+    {
+      max_inter_pl = max_frame_intersects(pls, s);
+    }
+    catch (const std::bad_alloc &)
+    {
+      std::cerr << "Memory allocation error" << "\n";
+      free_planars(pls, s);
+      return 2;
+    }
+    
+    if (max_inter_pl == pls + s)
+    {
+      std::cerr << "Not found" << "\n";
+      free_planars(pls, s);
+      return 0;
+    }
+    
+    draw(max_inter_pl[0]);
+    draw(max_inter_pl[1]);
+  }
+  
+  else
+  {
+    std::cerr << "Not enough Planars" << "\n";
+    free_planars(pls, s);
+    return 3;
+  }
+  
   free_planars(pls, s);
   return 0;
 }
