@@ -13,13 +13,13 @@ int main()
 
   while (std::cin)
   {
-    if (std::cin.peek() == EOF) {
+    if (std::cin.eof()) {
         break;
     }
 
-    while (std::cin.peek() == '\n' || std::cin.peek() == '\r') {
+    while (std::cin.peek() == '\n') {
         std::cin.ignore(1);
-        if (std::cin.peek() == EOF)
+        if (std::cin.eof())
         {
           break;
         }
